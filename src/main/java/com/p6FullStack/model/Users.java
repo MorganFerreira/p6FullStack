@@ -41,4 +41,10 @@ public class Users {
     @Column(name = "themes")
     private List<Themes> themes = new ArrayList<>();
 
+	public Users(String email, String name, String password) {
+		this.email = email;
+		this.name = name;
+		this.password = password;
+		this.themes = new ArrayList<>();
+	}
 }
