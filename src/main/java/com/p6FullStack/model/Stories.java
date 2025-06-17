@@ -38,9 +38,8 @@ public class Stories {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @OneToOne(optional = false, targetEntity = Users.class)
-    @Column(name = "author_id")
-    private int authorId;
+    @Column(name = "author_name")
+    private String authorName;
 
     @OneToOne(optional = false, targetEntity = Themes.class)
     @Column(name = "theme_id")

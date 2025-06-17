@@ -9,20 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.p6FullStack.dto.StoriesDto;
 import com.p6FullStack.mappers.StoriesMapper;
 import com.p6FullStack.model.Stories;
-import com.p6FullStack.model.Users;
 import com.p6FullStack.service.JWTService;
 import com.p6FullStack.service.StoriesService;
-import com.p6FullStack.service.UserService;
-
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
@@ -32,20 +26,15 @@ public class StoriesController {
 	@Autowired
 	private StoriesService storiesService;
 	
-	@Autowired
-	private final UserService userService;
-	
 	private final StoriesMapper storiesMapper;
 	
 	private final JWTService jwtService;
 	
 	public StoriesController(StoriesService storiesService,
 							 StoriesMapper storiesMapper,
-							 UserService userService,
 							 JWTService jwtService) {
 		this.storiesService = storiesService;
 		this.storiesMapper = storiesMapper;
-		this.userService = userService;
 		this.jwtService = jwtService;
 	}
 
@@ -100,23 +89,6 @@ public class StoriesController {
         storiesService.createStory(storiesMapper.mapToEntity(storyDto), userName);
         return ResponseEntity.ok(new StoryResponse("Article créé !!!"));
    }
-
-	/**
-	 * Modify Story by Id
-	 * @param Id and FormData
-	 * @return StoryResponse
-	 */
-	@Operation(summary = "Update story", description = "Modifie un article avec en paramètres son Id")
-    @PutMapping("/{id}")
-    public ResponseEntity<StoryResponse> updateStory(@PathVariable String id, @ModelAttribute StoriesDto storyDto) {
-        
-		String message = storiesService.updateRental(id, storiesMapper.mapToEntity(storyDto));
-        if(message == "Rental updated"){
-            return ResponseEntity.ok(new StoryResponse(message));
-        } else {
-            return ResponseEntity.status(404).build();
-        }
-    }
 
     public record StoryResponse(String response) {}
     public record StoriesResponse(List<StoriesDto> stories) {}
