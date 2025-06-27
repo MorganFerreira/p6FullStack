@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +21,8 @@ public class Comments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
-    private int commentId;
+    @Column(name = "id")
+    private int id;
  
     @Column(name = "content")
     private String content;
@@ -29,7 +31,11 @@ public class Comments {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
  
-    @Column(name = "author_name")
-    private String authorName;
+    @OneToOne(optional = false, targetEntity = Users.class)
+    @JoinColumn(name = "associatedUser", referencedColumnName = "id")
+    private Users associatedUser;
 
+    @OneToOne(optional = false, targetEntity = Stories.class)
+    @JoinColumn(name = "associatedStory", referencedColumnName = "id")
+    private Stories associatedStory;
 }

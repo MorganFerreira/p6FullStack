@@ -45,7 +45,7 @@ public class UsersController {
 	 * @param RegisterRequest An object users
 	 * @return Token
 	 */
-	@Operation(summary = "Login", description = "Autorise un utilisateur à se connecter et retourne un token JWT")
+	@Operation(summary = "Register a new user", description = "Vérifie si l'utilisateur est en BDD, crée l'utilisateur et retourne un token JWT")
     @PostMapping("/auth/register")
     public ResponseEntity<ResponseToken> registerUser(@RequestBody RegisterRequest body) {
 
@@ -63,7 +63,7 @@ public class UsersController {
 	 * @param Header
 	 * @return UsersDto
 	 */
-	@Operation(summary = "Register a new user", description = "Vérifie si l'utilisateur est en BDD, crée l'utilisateur et retourne un token JWT")
+	@Operation(summary = "Get user informations", description = "Retourne le nom et l'email de l'utilisateur")
     @GetMapping("/auth/me")
     public ResponseEntity<UsersDto> currentUser(@RequestHeader("Authorization") String token, String header) {      
         
@@ -82,7 +82,7 @@ public class UsersController {
 	 * @param Authentication An object authentication
 	 * @return Token
 	 */
-	@Operation(summary = "Get user informations", description = "Retourne le nom et l'email de l'utilisateur")
+	@Operation(summary = "Login", description = "Autorise un utilisateur à se connecter et retourne un token JWT")
     @PostMapping("/auth/login")
     public ResponseEntity<ResponseToken> login(@RequestBody LoginRequest body) {
         

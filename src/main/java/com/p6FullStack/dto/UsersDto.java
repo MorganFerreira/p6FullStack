@@ -1,6 +1,10 @@
 package com.p6FullStack.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.p6FullStack.model.Themes;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UsersDto {
 
-	private int userId;
+	private int id;
 
 	private String email;
 	
@@ -16,5 +20,7 @@ public class UsersDto {
 	
 	@JsonIgnore
 	private String password;
+
+	private List<Themes> listThemes;
 
 }

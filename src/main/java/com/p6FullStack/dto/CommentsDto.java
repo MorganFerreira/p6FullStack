@@ -2,6 +2,8 @@ package com.p6FullStack.dto;
 
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;
+import com.p6FullStack.model.Stories;
+import com.p6FullStack.model.Users;
 import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentsDto {
 
-	private int commentId;
+	private int id;
 
 	private String content;
 
@@ -18,8 +20,8 @@ public class CommentsDto {
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private LocalDateTime createdAt;
 
-	private int userId;
+	private Users associatedUser;
 
-	private int storyId;
+	private Stories associatedStory;
 
 }

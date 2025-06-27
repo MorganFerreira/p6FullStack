@@ -1,10 +1,9 @@
 package com.p6FullStack.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import org.springframework.data.annotation.CreatedDate;
-import com.p6FullStack.model.Comments;
 import com.p6FullStack.model.Themes;
+import com.p6FullStack.model.Users;
 import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StoriesDto {
 
-	private int storyId;
+	private int id;
 	
 	private String title;
 	
@@ -23,10 +22,8 @@ public class StoriesDto {
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private LocalDateTime createdAt;
 
-	private int authorId;
+	private Users associatedUser;
 	
-	private Themes themeId;
-	
-	private List<Comments> comments;
+	private Themes associatedTheme;
 
 }

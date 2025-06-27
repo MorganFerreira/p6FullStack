@@ -25,8 +25,6 @@ public class CommentsService {
 	public Comments createComment(Comments newComment, String userName, String storyId) {
 		
 		newComment.setCreatedAt(LocalDateTime.now());
-		newComment.setAuthorName(userName);
-		storiesService.updateStory(storyId, newComment);
 		return commentsRepository.save(newComment);
 	}
 }

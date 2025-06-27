@@ -3,14 +3,15 @@ package com.p6FullStack.model;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,8 @@ public class Users {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")	
-	private int userId;
+    @Column(name = "id")	
+	private int id;
 
 	@Column(name = "email")
 	private String email;
@@ -36,15 +37,16 @@ public class Users {
 	@Column(name = "password")
 	private String password;
 	
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "theme_id")
-    @Column(name = "themes")
-    private List<Themes> themes = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "subscriptions",
+               joinColumns = @JoinColumn(name = "user_id"),
+               inverseJoinColumns = @JoinColumn(name = "theme_id"))
+    private List<Themes> listThemes = new ArrayList<>();
 
 	public Users(String email, String name, String password) {
 		this.email = email;
 		this.name = name;
 		this.password = password;
-		this.themes = new ArrayList<>();
+		this.listThemes = new ArrayList<>();
 	}
 }
