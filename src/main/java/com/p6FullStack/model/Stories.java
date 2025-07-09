@@ -12,6 +12,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class Stories {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
  
     @Column(name = "title")
     private String title;
@@ -34,12 +35,14 @@ public class Stories {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @OneToOne(optional = false, targetEntity = Users.class)
-    @JoinColumn(name = "associatedUser", referencedColumnName = "id")
+    @OneToOne
+    @NonNull
+    @JoinColumn(name = "associated_user", referencedColumnName = "id")
     private Users associatedUser;
 
-    @OneToOne(optional = false, targetEntity = Themes.class)
-    @JoinColumn(name = "associatedTheme", referencedColumnName = "id")
+    @OneToOne
+    @NonNull
+    @JoinColumn(name = "associated_theme", referencedColumnName = "id")
     private Themes associatedTheme;
 
 }

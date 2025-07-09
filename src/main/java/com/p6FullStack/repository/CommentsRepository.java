@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.p6FullStack.model.Comments;
 
 @Repository
-public interface CommentsRepository extends JpaRepository<Comments, Integer> {
+public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
 }

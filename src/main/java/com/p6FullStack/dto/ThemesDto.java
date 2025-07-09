@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ThemesDto {
 
-	private int id;
+	private Long id;
 
 	private String title;
 

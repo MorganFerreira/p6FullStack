@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.p6FullStack.dto.StoriesDto;
 import com.p6FullStack.mappers.StoriesMapper;
 import com.p6FullStack.model.Stories;
-import com.p6FullStack.service.JWTService;
 import com.p6FullStack.service.StoriesService;
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -28,14 +27,10 @@ public class StoriesController {
 	
 	private final StoriesMapper storiesMapper;
 	
-	private final JWTService jwtService;
-	
 	public StoriesController(StoriesService storiesService,
-							 StoriesMapper storiesMapper,
-							 JWTService jwtService) {
+							 StoriesMapper storiesMapper) {
 		this.storiesService = storiesService;
 		this.storiesMapper = storiesMapper;
-		this.jwtService = jwtService;
 	}
 
 	/**
@@ -85,8 +80,7 @@ public class StoriesController {
     @PostMapping("")
     public ResponseEntity<StoryResponse> createStory(@RequestHeader("Authorization") String token, @ModelAttribute StoriesDto storyDto) throws Exception {
 	
-        String userName = jwtService.getNameFromToken(token);
-        storiesService.createStory(storiesMapper.mapToEntity(storyDto), userName);
+        storiesService.createStory(storiesMapper.mapToEntity(storyDto));
         return ResponseEntity.ok(new StoryResponse("Article créé !!!"));
    }
 

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentsDto {
 
-	private int id;
+	private Long id;
 
 	private String content;
 

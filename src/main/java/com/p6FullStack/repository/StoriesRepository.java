@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.p6FullStack.model.Stories;
 
 @Repository
-public interface StoriesRepository extends JpaRepository<Stories, Integer> {
+public interface StoriesRepository extends JpaRepository<Stories, Long> {
 
 }

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 import com.p6FullStack.model.Users;
 
 @Repository
-public interface UsersRepository extends JpaRepository <Users, Integer> {
+public interface UsersRepository extends JpaRepository <Users, Long> {
 	Users findByName(String name);
 	Users findByEmail(String email);
+	Boolean existsByEmail(String email);
+	Boolean existsByName(String name);
 }

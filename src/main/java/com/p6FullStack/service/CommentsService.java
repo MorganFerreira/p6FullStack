@@ -22,7 +22,7 @@ public class CommentsService {
 		return commentsRepository.findAll();
 	}
 	
-	public Comments createComment(Comments newComment, String userName, String storyId) {
+	public Comments createComment(Comments newComment) {
 		
 		newComment.setCreatedAt(LocalDateTime.now());
 		return commentsRepository.save(newComment);

@@ -14,8 +14,8 @@ CREATE TABLE `stories` (
   `title` VARCHAR(255) NOT NULL,
   `content` VARCHAR(2000),
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `associatedUser` INT NOT NULL,
-  `associatedTheme` INT NOT NULL
+  `associated_user` INT,
+  `associated_theme` INT
 );
 
 CREATE TABLE `themes` (
@@ -28,8 +28,8 @@ CREATE TABLE `comments` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `content` VARCHAR(2000) NOT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `associatedUser` INT NOT NULL,
-  `associatedStory` INT NOT NULL
+  `associated_user` INT,
+  `associated_story` INT
 );
 
 CREATE TABLE `subscriptions` (
@@ -38,10 +38,10 @@ CREATE TABLE `subscriptions` (
   `theme_id` INT
 );
 
-ALTER TABLE `stories` ADD FOREIGN KEY (`associatedUser`) REFERENCES `users` (`id`);
-ALTER TABLE `stories` ADD FOREIGN KEY (`associatedTheme`) REFERENCES `themes` (`id`);
-ALTER TABLE `comments` ADD FOREIGN KEY (`associatedUser`) REFERENCES `users` (`id`);
-ALTER TABLE `comments` ADD FOREIGN KEY (`associatedStory`) REFERENCES `stories` (`id`);
+ALTER TABLE `stories` ADD FOREIGN KEY (`associated_user`) REFERENCES `users` (`id`);
+ALTER TABLE `stories` ADD FOREIGN KEY (`associated_theme`) REFERENCES `themes` (`id`);
+ALTER TABLE `comments` ADD FOREIGN KEY (`associated_user`) REFERENCES `users` (`id`);
+ALTER TABLE `comments` ADD FOREIGN KEY (`associated_story`) REFERENCES `stories` (`id`);
 
 ALTER TABLE `subscriptions` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 ALTER TABLE `subscriptions` ADD FOREIGN KEY (`theme_id`) REFERENCES `themes` (`id`);
@@ -56,12 +56,12 @@ INSERT INTO themes (title, content) VALUES
   ('theme2', 'contentTheme2'),
   ('theme3', 'contentTheme3');
 
-INSERT INTO stories (title, content, created_at, associatedUser, associatedTheme) VALUES
+INSERT INTO stories (title, content, created_at, associated_user, associated_theme) VALUES
   ('story1', 'contentStory1', '2025-05-17', 1, 1),
   ('story2', 'contentStory2', '2025-05-17', 2, 2),
   ('story3', 'contentStory3', '2025-05-17', 3, 3);
   
-INSERT INTO comments (content, created_at, associatedUser, associatedStory) VALUES
+INSERT INTO comments (content, created_at, associated_user, associated_story) VALUES
   ('contentComment1', '2025-05-17', 1, 1),
   ('contentComment2', '2025-05-17', 1, 2),
   ('contentComment3', '2025-05-17', 1, 2);

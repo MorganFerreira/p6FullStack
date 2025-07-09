@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StoriesDto {
 
-	private int id;
+	private Long id;
 	
 	private String title;
 	

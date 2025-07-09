@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,6 @@ import com.p6FullStack.dto.CommentsDto;
 import com.p6FullStack.mappers.CommentsMapper;
 import com.p6FullStack.model.Comments;
 import com.p6FullStack.service.CommentsService;
-import com.p6FullStack.service.JWTService;
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
@@ -27,14 +25,10 @@ public class CommentsController {
 	
 	private final CommentsMapper commentsMapper;
 	
-	private final JWTService jwtService;
-	
 	public CommentsController(CommentsService commentsService,
-							  CommentsMapper commentsMapper,
-							  JWTService jwtService) {
+							  CommentsMapper commentsMapper) {
 		this.commentsService = commentsService;
 		this.commentsMapper = commentsMapper;
-		this.jwtService = jwtService;
 	}
 
 	/**
@@ -64,10 +58,9 @@ public class CommentsController {
 	 */
 	@Operation(summary = "Create comment", description = "Créés un commentaire")
     @PostMapping("")
-    public ResponseEntity<CommentResponse> createComment(@RequestHeader("Authorization") String token, @PathVariable String storyId, @ModelAttribute CommentsDto commentDto) throws Exception {
+    public ResponseEntity<CommentResponse> createComment(@RequestHeader("Authorization") String token, @ModelAttribute CommentsDto commentDto) throws Exception {
     
-		String userName = jwtService.getNameFromToken(token);
-        commentsService.createComment(commentsMapper.mapToEntity(commentDto), userName, storyId);
+        commentsService.createComment(commentsMapper.mapToEntity(commentDto));
         return ResponseEntity.ok(new CommentResponse("Commentaire créé !!!"));
     }
     

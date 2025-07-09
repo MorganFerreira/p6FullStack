@@ -21,11 +21,11 @@ public class StoriesService {
 
 	public Optional<Stories> getStoryById(String id) {
 		
-		Integer ident = Integer.parseInt(id);
+		Long ident = Long.parseLong(id);
 		return storiesRepository.findById(ident);
 	}
 
-	public Stories createStory(Stories newStory, String userName) {
+	public Stories createStory(Stories newStory) {
 		
 		newStory.setCreatedAt(LocalDateTime.now());
 		return storiesRepository.save(newStory);
