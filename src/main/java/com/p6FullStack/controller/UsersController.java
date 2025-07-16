@@ -81,8 +81,9 @@ public class UsersController {
         if (userFound != null) {
             if (!passwordEncoder.matches(body.password(), userFound.getPassword()))
                 return ResponseEntity.badRequest().body(new MessageResponse("Error1"));
-            else
-                return ResponseEntity.ok(new ResponseWithToken(jwtService.generateToken(userFound.getEmail()), userFound.getId(), userFound.getName(), userFound.getEmail()));
+            else {
+            	return ResponseEntity.ok(new ResponseWithToken(jwtService.generateToken(userFound.getEmail()), userFound.getId(), userFound.getName(), userFound.getEmail()));
+            }
         } else {
             return ResponseEntity.badRequest().body(new MessageResponse("Error2"));
         }
@@ -111,13 +112,16 @@ public class UsersController {
 	 * @param user_id and theme_id
 	 */
 	@Operation(summary = "Subscribe to theme", description = "Souscris un abonnement à un thème pour l'utilisateur")
-    @PostMapping("{userId}/subscribe/{themeId}")
-    public ResponseEntity<?> subscribe(@PathVariable("userId") String userId, @PathVariable("themeId") String themeId) {
+    @PostMapping("/user/{userId}/subscribe/{themeId}")
+    public ResponseEntity<MessageResponse> subscribe(@PathVariable("userId") String userId, @PathVariable("themeId") String themeId) {
         
 		try {
-            this.userService.subscribe(Long.parseLong(userId), Long.parseLong(themeId));
-
-            return ResponseEntity.ok().build();
+            String message = this.userService.subscribe(Long.parseLong(userId), Long.parseLong(themeId));
+			if (!message.equals("User subscribed to theme successfully")) {
+				return ResponseEntity.badRequest().body(new MessageResponse(message));
+			} else {
+				return ResponseEntity.ok(new MessageResponse(message));
+            }
         } catch (NumberFormatException e) {
             return ResponseEntity.badRequest().build();
         }
@@ -128,13 +132,16 @@ public class UsersController {
 	 * @param user_id and theme_id
 	 */
 	@Operation(summary = "UnSubscribe to theme", description = "Désabonne un utilisateur à un thème")
-    @DeleteMapping("{userId}/unsubscribe/{themeId}")
-    public ResponseEntity<?> unSubscribe(@PathVariable("userId") String userId, @PathVariable("themeId") String themeId) {
+    @DeleteMapping("/user/{userId}/unsubscribe/{themeId}")
+    public ResponseEntity<MessageResponse> unSubscribe(@PathVariable("userId") String userId, @PathVariable("themeId") String themeId) {
         
 		try {
-            this.userService.unSubscribe(Long.parseLong(userId), Long.parseLong(themeId));
-
-            return ResponseEntity.ok().build();
+            String message = this.userService.unSubscribe(Long.parseLong(userId), Long.parseLong(themeId));
+			if (!message.equals("User unsubscribed from theme successfully")) {
+				return ResponseEntity.badRequest().body(new MessageResponse(message));
+			} else {
+				return ResponseEntity.ok(new MessageResponse(message));
+			}
         } catch (NumberFormatException e) {
             return ResponseEntity.badRequest().build();
         }

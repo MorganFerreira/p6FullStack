@@ -14,19 +14,18 @@ import { MatIconModule } from '@angular/material/icon';
     styleUrl: './login.component.scss',
     imports: [CommonModule, ReactiveFormsModule, MatIconModule]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 	
+    public onError = false;
     private authService = inject(AuthService);
     private sessionService = inject(SessionService);
     private router = inject(Router);
-	public onError = false;
 	private formBuilder = inject(FormBuilder);
+    
     public form = this.formBuilder.group({
         email: ['', [Validators.required, Validators.minLength(3)]],
         password: ['', [Validators.required, Validators.minLength(3)]]
     });
-
-    ngOnInit(): void { }
 
     onLogin(): void {
         const loginRequest = this.form.value as LoginRequest;
@@ -34,7 +33,7 @@ export class LoginComponent implements OnInit {
             next: (messageResponse: UserSession) => {
                 this.onError = false;
                 this.sessionService.logIn(messageResponse)
-                this.router.navigate(['/post']);
+                this.router.navigate(['/stories']);
             },
             error: () => this.onError = true,
         });

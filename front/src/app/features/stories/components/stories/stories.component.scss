@@ -1,0 +1,47 @@
+.container-stories-section {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 690px;
+    margin: auto;
+}
+
+.container-story-creation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sortBy {
+    font-size: 15px;
+    background-color: white;
+    border: none;
+}
+
+.container-stories-div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.div-story{
+    margin: 10px auto;
+    width: 310px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: #F5F5F5;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.date-author{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+
+.date {
+    margin-right: 50px;
+}

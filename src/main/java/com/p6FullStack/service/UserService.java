@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.p6FullStack.configuration.SpringSecurityConfig;
 import com.p6FullStack.dto.UsersDto;
-import com.p6FullStack.exception.BadRequestException;
-import com.p6FullStack.exception.NotFoundException;
 import com.p6FullStack.model.Themes;
 import com.p6FullStack.model.Users;
 import com.p6FullStack.repository.ThemesRepository;
@@ -30,7 +28,7 @@ public class UserService {
     public Users saveUsers(String email, String name, String password) {
 		Users newUsers = new Users(email, name, password);
 		String visiblePassword = newUsers.getPassword();
-		newUsers.setPassword(springSecurityConfig.passwordEncoder().encode(visiblePassword));
+		newUsers.setPassword(springSecurityConfig.encoder().encode(visiblePassword));
 		return usersRepository.save(newUsers);
     }
     
@@ -43,39 +41,36 @@ public class UserService {
         return usersRepository.findById(ident);
     }
     
-    public void subscribe(Long userId, Long themeId) {
+    public String subscribe(Long userId, Long themeId) {
         Themes theme = this.themesRepository.findById(themeId).orElse(null);
         Users user = this.usersRepository.findById(userId).orElse(null);
         
         if (theme == null || user == null) {
-            throw new NotFoundException();
+            return "Theme or User not found";
         }
 
         boolean alreadySubscribe = user.getListThemes().stream().anyMatch(t -> t.getId().equals(themeId));
         if(alreadySubscribe) {
-            throw new BadRequestException();
+            return "User already subscribed to this theme";
         }
 
         user.getListThemes().add(theme);
-
         this.usersRepository.save(user);
+        return "User subscribed to theme successfully";
+        
     }
 
-    public void unSubscribe(Long userId, Long themeId) {
+    public String unSubscribe(Long userId, Long themeId) {
         Themes theme = this.themesRepository.findById(themeId).orElse(null);
         Users user = this.usersRepository.findById(userId).orElse(null);
+        
         if (theme == null || user == null) {
-            throw new NotFoundException();
-        }
-
-        boolean alreadySubscribe = user.getListThemes().stream().anyMatch(t -> t.getId().equals(themeId));
-        if(!alreadySubscribe) {
-            throw new BadRequestException();
+            return "Theme or User not found";
         }
 
         user.setListThemes(user.getListThemes().stream().filter(t -> !t.getId().equals(themeId)).collect(Collectors.toList()));
-
         this.usersRepository.save(user);
+        return "User unsubscribed from theme successfully";
     }
     
 	public String updateUser(UsersDto userDtoToUpdate) {
@@ -83,7 +78,7 @@ public class UserService {
         if(userToUpdate != null){
         	userToUpdate.setEmail(userDtoToUpdate.getEmail());
         	userToUpdate.setName(userDtoToUpdate.getName());
-        	userToUpdate.setPassword(springSecurityConfig.passwordEncoder().encode(userDtoToUpdate.getPassword()));
+        	userToUpdate.setPassword(springSecurityConfig.encoder().encode(userDtoToUpdate.getPassword()));
             usersRepository.save(userToUpdate);
             return "User updated";
         } else {
