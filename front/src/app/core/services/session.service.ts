@@ -15,6 +15,7 @@ export class SessionService {
 
   public logIn(userSession: UserSession): void {
     this.userSession = userSession;
+    localStorage.setItem('token', userSession.token);
     this.isLogged = true;
     this.next();
   }

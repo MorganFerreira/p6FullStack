@@ -6,7 +6,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import com.p6FullStack.configuration.RsaKeyProperties;
 
-@EnableConfigurationProperties(RsaKeyProperties.class)
 @SpringBootApplication
 @EnableJpaAuditing
 public class Projet6FullStackApplication {
