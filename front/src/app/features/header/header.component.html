@@ -1,0 +1,11 @@
+<header>
+    <div class="div-p6">
+        <img class="img-p6" src="/assets/logo.png" alt="logo"/>
+    </div>
+    <div class="div-nav">
+        <button class="logOut" (click)="logOut()">Se déconnecter</button>
+        <a routerLink="/stories" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Articles</a>
+        <a routerLink="/themes" routerLinkActive="active">Thèmes</a>
+        <a routerLink="/profile" routerLinkActive="activeImg"><img class="img-profile" src="/assets/profile.png" alt="profile"></a>
+    </div>
+</header>

@@ -1,3 +1,8 @@
+<header>
+    <div>
+        <img src="/assets/logo.png" alt="logo" width="20%" height="20%"/>
+    </div>
+</header>
 <div class="container-auth">
     <div>
         <button mat-icon-button (click)="home()">
@@ -15,7 +20,7 @@
             <input matInput type="password" name="password" required formControlName="password">
         </div>
         <div class="bottom-button">
-            <button class="button-mdd" mat-raised-button type="submit" [disabled]="form.invalid">Se connecter</button>
+            <button class="button-p6" type="submit" [disabled]="form.invalid">Se connecter</button>
             <p *ngIf="onError" class="error">An error occurred</p>
         </div>
     </form>

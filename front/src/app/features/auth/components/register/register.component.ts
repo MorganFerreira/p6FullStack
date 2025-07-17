@@ -6,12 +6,13 @@ import { AuthService } from '../../services/auth.services';
 import { RegisterRequest } from '../../models/registerRequest.model';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrl: './register.component.scss',
-    imports: [CommonModule, MatIconModule, ReactiveFormsModule]
+    imports: [CommonModule, MatIconModule, ReactiveFormsModule, MatButtonModule]
 
 })
 export class RegisterComponent implements OnInit {

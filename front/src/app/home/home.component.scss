@@ -9,3 +9,18 @@
 img {
 width: 350px;
 }
+
+.container-buttons-home{
+    display: flex;
+    flex-direction: row;
+}
+
+.buttons-home {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 5px 15px;
+    width: auto;
+    text-align: center;
+    margin: 30px;
+}

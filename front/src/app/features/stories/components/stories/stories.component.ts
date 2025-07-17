@@ -6,10 +6,11 @@ import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../../../core/services/user.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { HeaderComponent } from '../../../header/header.component';
 
 @Component({
 	selector: 'app-stories',
-	imports: [CommonModule, RouterModule, MatIconModule],
+	imports: [CommonModule, RouterModule, MatIconModule, HeaderComponent],
 	templateUrl: './stories.component.html',
 	styleUrl: './stories.component.scss'
 })
@@ -30,10 +31,10 @@ export class StoriesComponent implements OnInit {
 			this.allStories = stories;
 		});
 		this.userService.getUserById(this.sessionService.userSession!.id.toString()).subscribe(user => {
-			if (user.subscriptions.length === 0) {
+			if (user.listThemes.length === 0) {
 				this.noStoriesMessage = "Aucun abonnement détecté, veuillez vous abonner à un thème pour accéder aux articles";
 			} else {
-				user.subscriptions.forEach(theme => {
+				user.listThemes.forEach(theme => {
 					this.storiesFromSubscriptions.push(...this.allStories.filter(story => story.associatedTheme === theme.id));
 				});
 				this.sortBy();

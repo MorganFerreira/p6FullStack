@@ -5,6 +5,6 @@ export class User {
     id!: number;
     name!: string;
     email!: string;
-    subscriptions!: Theme[];
+    listThemes!: Theme[];
 
 }

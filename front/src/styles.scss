@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.error {
+    color: red;
+}
+
+.button-p6 {
+    background-color: #7464BF;
+    color: white;
+    border-radius: 8px;
+    border: 1px solid;
+    padding: 10px 15px;
+    width: auto;
+    text-align: center;
+    margin: 15px;
+}

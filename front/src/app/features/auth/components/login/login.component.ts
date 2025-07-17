@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.services';
@@ -7,12 +7,13 @@ import { LoginRequest } from '../../models/loginRequest.model';
 import { UserSession } from '../../../../core/models/userSession.model';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
-    imports: [CommonModule, ReactiveFormsModule, MatIconModule]
+    imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatButtonModule]
 })
 export class LoginComponent {
 	

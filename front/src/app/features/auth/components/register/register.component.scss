@@ -1,0 +1,51 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+img {
+    width: 200px;
+}
+
+div {
+    display: flex;
+}
+
+.img-responsive {
+    display: none;
+}
+
+.container-auth {
+    display: block;
+    flex-direction: column;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+div.form-group {
+  margin: 10px auto;
+  width: 250px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid;
+}
+
+.bottom-button {
+  margin: 10px auto;
+  width: 250px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
