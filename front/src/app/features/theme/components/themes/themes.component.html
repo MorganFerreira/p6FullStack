@@ -1,0 +1,35 @@
+<app-header></app-header>
+<section class="container-themes-section">
+    <div class="container-themes-div">
+        <ng-container *ngFor="let themeNotSubscribed of (themesNotSubscribed | async)">
+            <div class="div-themes">
+                <h2>
+                    {{ themeNotSubscribed.title }}
+                </h2>
+                <div>
+                    {{ themeNotSubscribed.content }}
+                </div>
+                <div class="div-button-subscribed">
+                    <ng-container>
+                        <button class="button-p6" (click)="subscribe(themeNotSubscribed.id)">S'abonner</button>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngFor="let themeSubscribed of (themesSubscribed | async)">
+            <div class="div-themes">
+                <h2>
+                    {{ themeSubscribed.title }}
+                </h2>
+                <div class="content">
+                    {{ themeSubscribed.content }}
+                </div>
+                <div class="div-button-subscribed">
+                    <ng-container>
+                        <button class="disabled-button-p6">Déjà abonné</button>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</section>

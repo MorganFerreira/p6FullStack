@@ -7,6 +7,8 @@ import { UserService } from '../../../../core/services/user.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from '../../../header/header.component';
+import { Theme } from '../../../theme/models/theme.model';
+import { ThemesService } from '../../../theme/services/themes.services';
 
 @Component({
 	selector: 'app-stories',
@@ -16,7 +18,6 @@ import { HeaderComponent } from '../../../header/header.component';
 })
 export class StoriesComponent implements OnInit {
 		
-	public allStories: Story[] = [];
 	public storiesFromSubscriptions: Story[] = [];
 	public noStoriesMessage: string = '';
 	public iconSortDown: boolean = true;
@@ -24,28 +25,41 @@ export class StoriesComponent implements OnInit {
 	public storyService = inject(StoryService);
 	public userService = inject(UserService);
 	public sessionService = inject(SessionService);
+	public themesServices = inject(ThemesService);
 	public router = inject(Router);
+	public userId: string | undefined;
+	
+	constructor() {
+		this.userId = this.sessionService.userSession?.id?.toString();
+	}
 
 	ngOnInit() {
-		this.storyService.getAllStories().subscribe(stories => {
-			this.allStories = stories;
-		});
-		this.userService.getUserById(this.sessionService.userSession!.id.toString()).subscribe(user => {
-			if (user.listThemes.length === 0) {
+		this.themesServices.getAllSubscribedThemesByUserId(this.userId!).subscribe(themes => {
+			if (themes.length === 0) {
 				this.noStoriesMessage = "Aucun abonnement détecté, veuillez vous abonner à un thème pour accéder aux articles";
 			} else {
-				user.listThemes.forEach(theme => {
-					this.storiesFromSubscriptions.push(...this.allStories.filter(story => story.associatedTheme === theme.id));
+				themes.forEach(theme => {
+					this.loadStoriesByTheme(theme);
 				});
 				this.sortBy();
 			}
 		});
 	}
 		
-	public sortBy(): void {
+	public sortBy() {
 		if (this.iconSortDown) this.storiesFromSubscriptions.sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 		else this.storiesFromSubscriptions.sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 		this.iconSortDown = !this.iconSortDown;
+	}
+	
+	private loadStoriesByTheme(theme: Theme) {
+		this.storyService.getAllStories().subscribe(stories => {
+			stories.forEach(story => {
+				if (story.associatedTheme === theme.id) {
+					this.storiesFromSubscriptions.push(story);
+				}
+			});
+		});
 	}
 
 	public storyById(storyId: number) {

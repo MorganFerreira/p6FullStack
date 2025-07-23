@@ -1,0 +1,30 @@
+.container-themes-section {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 690px;
+    margin: auto;
+}
+
+.container-themes-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.div-themes {
+    margin: 10px auto;
+    width: 310px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: #F5F5F5;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.div-button-subscribed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,5 +1,8 @@
 package com.p6FullStack.mappers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -20,6 +23,12 @@ public class ThemesMapper {
 
     public Themes mapToEntity(ThemesDto themesDto){
         return themesModelMapper().map(themesDto, Themes.class);
+    }
+
+	public List<ThemesDto> mapListToDto(List<Themes> themes){
+		return themes.stream()
+					 .map(theme -> themesModelMapper().map(theme, ThemesDto.class))
+					 .collect(Collectors.toList());
     }
 
 	public ThemesDto mapToDtoWithOptional(Object themes){

@@ -49,13 +49,13 @@ public class UserService {
             return "Theme or User not found";
         }
 
-        boolean alreadySubscribe = user.getListThemes().stream().anyMatch(t -> t.getId().equals(themeId));
+        boolean alreadySubscribe = theme.getListUsers().stream().anyMatch(u -> u.getId().equals(themeId));
         if(alreadySubscribe) {
             return "User already subscribed to this theme";
         }
 
-        user.getListThemes().add(theme);
-        this.usersRepository.save(user);
+        theme.getListUsers().add(user);
+        this.themesRepository.save(theme);
         return "User subscribed to theme successfully";
         
     }
@@ -68,8 +68,8 @@ public class UserService {
             return "Theme or User not found";
         }
 
-        user.setListThemes(user.getListThemes().stream().filter(t -> !t.getId().equals(themeId)).collect(Collectors.toList()));
-        this.usersRepository.save(user);
+        theme.setListUsers(theme.getListUsers().stream().filter(u -> !u.getId().equals(userId)).collect(Collectors.toList()));
+        this.themesRepository.save(theme);
         return "User unsubscribed from theme successfully";
     }
     
