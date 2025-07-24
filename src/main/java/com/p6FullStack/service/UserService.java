@@ -49,7 +49,7 @@ public class UserService {
             return "Theme or User not found";
         }
 
-        boolean alreadySubscribe = theme.getListUsers().stream().anyMatch(u -> u.getId().equals(themeId));
+        boolean alreadySubscribe = theme.getListUsers().stream().anyMatch(u -> u.getId().equals(userId));
         if(alreadySubscribe) {
             return "User already subscribed to this theme";
         }
@@ -73,16 +73,15 @@ public class UserService {
         return "User unsubscribed from theme successfully";
     }
     
-	public String updateUser(UsersDto userDtoToUpdate) {
+	public Users updateUser(UsersDto userDtoToUpdate) {
         Users userToUpdate = usersRepository.findById(userDtoToUpdate.getId()).orElse(null);
-        if(userToUpdate != null){
-        	userToUpdate.setEmail(userDtoToUpdate.getEmail());
+        if (userToUpdate != null) {
+			userToUpdate.setEmail(userDtoToUpdate.getEmail());
         	userToUpdate.setName(userDtoToUpdate.getName());
-        	userToUpdate.setPassword(springSecurityConfig.encoder().encode(userDtoToUpdate.getPassword()));
-            usersRepository.save(userToUpdate);
-            return "User updated";
+			userToUpdate.setPassword(springSecurityConfig.encoder().encode(userDtoToUpdate.getPassword()));
+			return usersRepository.save(userToUpdate);
         } else {
-            return "User not found";
+            return null;
         }
 	}
 }

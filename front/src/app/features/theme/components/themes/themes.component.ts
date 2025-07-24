@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Theme } from '../../models/theme.model';
 import { ThemesService } from '../../services/themes.services';
 import { SessionService } from '../../../../core/services/session.service';
@@ -28,17 +28,21 @@ export class ThemesComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.refreshThemes();
+    }
+
+    public subscribe(idTheme: number) {
+        this.userService.subscribe(this.userId!, idTheme.toString()).subscribe(_ => {
+            this.refreshThemes();
+        });
+    }
+
+    private refreshThemes() {
         this.themesService.getAllNotSubscribedThemesByUserId(this.userId!).subscribe(themes => {
             this.themesNotSubscribed.next(themes);
         });
         this.themesService.getAllSubscribedThemesByUserId(this.userId!).subscribe(themes => {
             this.themesSubscribed.next(themes);
-        });
-    }
-
-    public subscribe(idTheme: number) {
-        this.userService.subscribe(this.userId!, idTheme.toString()).subscribe(_ => {
-            this.ngOnInit();
         });
     }
 }

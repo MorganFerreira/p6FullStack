@@ -5,6 +5,7 @@ import { LoginComponent } from './features/auth/components/login/login.component
 import { RegisterComponent } from './features/auth/components/register/register.component';
 import { StoriesComponent } from './features/stories/components/stories/stories.component';
 import { ThemesComponent } from './features/theme/components/themes/themes.component';
+import { ProfilComponent } from './features/profil/profil.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -12,7 +13,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'stories', component: StoriesComponent },
     { path: 'themes', component: ThemesComponent },
-    { path: 'profile', component: StoriesComponent },
+    { path: 'profile', component: ProfilComponent },
     { path: '**', redirectTo: '404' }
 ];
 

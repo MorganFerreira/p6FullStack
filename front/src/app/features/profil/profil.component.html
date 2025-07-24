@@ -1,0 +1,41 @@
+<app-header></app-header>
+<div class="container-profil">
+    <h2>Profil Utilisateur</h2>
+    <form [formGroup]="profilForm" (submit)="onUpdateProfil()">
+        <div class="form-group">
+            <input name="name" required placeholder="Nom d'utilisateur" formControlName="name">
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" required placeholder="Adresse e-mail" formControlName="email">
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" required placeholder="" formControlName="password">
+        </div>
+        <div class="div-submit-button">
+            <button class="button-p6" type="submit" [disabled]="profilForm.invalid">Sauvegarder</button>
+        </div>
+    </form>
+</div>
+<hr />
+<div>
+    <h2>Abonnements</h2>
+</div>
+<section class="container-themes-section">
+    <div class="container-themes-div">
+        <ng-container *ngFor="let themeSubscribed of (themesSubscribed | async)">
+            <div class="div-themes">
+                <h2>
+                    {{ themeSubscribed.title }}
+                </h2>
+                <div>
+                    {{ themeSubscribed.content }}
+                </div>
+                <div class="div-button-unsubscribed">
+                    <ng-container>
+                        <button class="button-p6" (click)="unSubscribe(themeSubscribed.id)">Se désabonner</button>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</section>

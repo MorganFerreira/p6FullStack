@@ -154,13 +154,13 @@ public class UsersController {
 	 */
 	@Operation(summary = "Update user", description = "Modifie les informations d'un utilisateur")
     @PutMapping("/user/{id}")
-    public ResponseEntity<UpdateResponse> updateUser(@PathVariable String id, @ModelAttribute UsersDto userDto) {
+    public ResponseEntity<UsersDto> updateUser(@PathVariable String id, @RequestBody UsersDto userDto) {
         
         try {
             userDto.setId(Long.parseLong(id));
-            String message = this.userService.updateUser(userDto);
-            if (message == "User updated"){
-                return ResponseEntity.ok(new UpdateResponse(message));
+            Users userUpdate = this.userService.updateUser(userDto);
+            if (userUpdate != null) {
+                return ResponseEntity.ok().body(usersMapper.mapToDto(userUpdate));
             } else {
                 return ResponseEntity.status(404).build();
             }
@@ -169,6 +169,7 @@ public class UsersController {
         }
     }
 
+	public record UpdateRequest(String email, String name, String password) {}
 	public record UpdateResponse(String response){}
 	public record MessageResponse(String message) {}
     public record RegisterRequest(String email, String password, String name) {}

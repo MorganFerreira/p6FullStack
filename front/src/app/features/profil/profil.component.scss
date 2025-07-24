@@ -1,0 +1,64 @@
+.container-profil {
+    display: block;
+    flex-direction: column;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+.container-themes-section {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 690px;
+    margin: auto;
+}
+
+.container-themes-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.div-themes {
+    margin: 10px auto;
+    width: 310px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: #F5F5F5;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+div.form-group {
+    margin: 10px auto;
+    width: 250px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid;
+    border-color: #7464BF;
+}
+
+.div-submit-button {
+    margin: 10px auto;
+    width: 250px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div-button-unsubscribed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

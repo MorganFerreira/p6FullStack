@@ -24,7 +24,8 @@ export class RegisterComponent implements OnInit {
     //Minimum 8 caractères, au - 1 lettre majuscule, 1 lettre minuscule, un chiffre et un caractère spécial:
     private passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#^?&])[A-Za-z\d@$!%*#^?&]{8,}$/;
     private formBuilder = inject(FormBuilder);
-    form = this.formBuilder.group({
+    
+    public form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(this.passwordRegex)]]
