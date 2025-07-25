@@ -35,13 +35,13 @@ public class ThemesController {
 	 */
 	@Operation(summary = "Get all themes", description = "Retourne touts les thèmes")
     @GetMapping("")
-    public ResponseEntity<ThemesResponse> findAllThemes() {
+    public ResponseEntity<?> findAllThemes() {
         List<Themes> themes = themesService.getAllThemes();        
         if(themes != null){
             List<ThemesDto> themesDto = themes.stream()
             								  .map(theme -> themesMapper.mapToDto(theme))
             								  .collect(Collectors.toList());
-            return ResponseEntity.ok(new ThemesResponse(themesDto));
+            return ResponseEntity.ok().body(themesDto);
         } else {
             return ResponseEntity.status(404).build();
         }
@@ -78,7 +78,4 @@ public class ThemesController {
             return ResponseEntity.badRequest().build();
         }
     }
-
-    public record ThemesResponse(List<ThemesDto> themes) {}
-
 }

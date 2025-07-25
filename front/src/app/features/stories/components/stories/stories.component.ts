@@ -3,7 +3,6 @@ import { Story } from '../../models/story.model';
 import { StoryService } from '../../services/story.service';
 import { SessionService } from '../../../../core/services/session.service';
 import { Router, RouterModule } from '@angular/router';
-import { UserService } from '../../../../core/services/user.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from '../../../header/header.component';
@@ -19,30 +18,33 @@ import { ThemesService } from '../../../theme/services/themes.services';
 export class StoriesComponent implements OnInit {
 		
 	public storiesFromSubscriptions: Story[] = [];
+	public allStories: Story[] = [];
 	public noStoriesMessage: string = '';
 	public iconSortDown: boolean = true;
 
-	public storyService = inject(StoryService);
-	public userService = inject(UserService);
-	public sessionService = inject(SessionService);
-	public themesServices = inject(ThemesService);
-	public router = inject(Router);
-	public userId: string | undefined;
+	private storyService = inject(StoryService);
+	private sessionService = inject(SessionService);
+	private themesServices = inject(ThemesService);
+	private router = inject(Router);
+	private userId: string | undefined;
 	
 	constructor() {
 		this.userId = this.sessionService.userSession?.id?.toString();
 	}
 
 	ngOnInit() {
-		this.themesServices.getAllSubscribedThemesByUserId(this.userId!).subscribe(themes => {
-			if (themes.length === 0) {
-				this.noStoriesMessage = "Aucun abonnement détecté, veuillez vous abonner à un thème pour accéder aux articles";
-			} else {
-				themes.forEach(theme => {
-					this.loadStoriesByTheme(theme);
-				});
-				this.sortBy();
-			}
+		this.storyService.getAllStories().subscribe(stories => {
+			this.allStories = stories;
+			this.themesServices.getAllSubscribedThemesByUserId(this.userId!).subscribe(themes => {
+				if (themes.length === 0) {
+					this.noStoriesMessage = "Aucun abonnement détecté, veuillez vous abonner à un thème pour accéder aux articles";
+				} else {
+					themes.forEach(theme => {
+						this.filterStoriesByTheme(theme);
+					});
+					this.sortBy();
+				}
+			});
 		});
 	}
 		
@@ -52,14 +54,10 @@ export class StoriesComponent implements OnInit {
 		this.iconSortDown = !this.iconSortDown;
 	}
 	
-	private loadStoriesByTheme(theme: Theme) {
-		this.storyService.getAllStories().subscribe(stories => {
-			stories.forEach(story => {
-				if (story.associatedTheme === theme.id) {
-					this.storiesFromSubscriptions.push(story);
-				}
-			});
-		});
+	private filterStoriesByTheme(theme: Theme) {
+		this.allStories.forEach(story => {
+			story.associatedTheme.id === theme.id ? this.storiesFromSubscriptions.push(story) : null;
+		})
 	}
 
 	public storyById(storyId: number) {

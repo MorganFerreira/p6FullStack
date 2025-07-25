@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,13 +41,13 @@ public class StoriesController {
 	 */
 	@Operation(summary = "Get all stories", description = "Retourne toutes les articles")
     @GetMapping("")
-    public ResponseEntity<StoriesResponse> findAllStories() {
+    public ResponseEntity<?> findAllStories() {
         List<Stories> stories = storiesService.getAllStories();        
         if(stories != null){
             List<StoriesDto> storiesDto = stories.stream()
             									 .map(story -> storiesMapper.mapToDto(story))
             									 .collect(Collectors.toList());
-            return ResponseEntity.ok(new StoriesResponse(storiesDto));
+            return ResponseEntity.ok().body(storiesDto);
         } else {
             return ResponseEntity.status(404).build();
         }
@@ -78,13 +79,12 @@ public class StoriesController {
 	 */
 	@Operation(summary = "Create story", description = "Créés un article")
     @PostMapping("")
-    public ResponseEntity<StoryResponse> createStory(@RequestHeader("Authorization") String token, @ModelAttribute StoriesDto storyDto) throws Exception {
+    public ResponseEntity<StoryResponse> createStory(@RequestHeader("Authorization") String token, @RequestBody StoriesDto storyDto) throws Exception {
 	
         storiesService.createStory(storiesMapper.mapToEntity(storyDto));
         return ResponseEntity.ok(new StoryResponse("Article créé !!!"));
    }
 
     public record StoryResponse(String response) {}
-    public record StoriesResponse(List<StoriesDto> stories) {}
 
 }

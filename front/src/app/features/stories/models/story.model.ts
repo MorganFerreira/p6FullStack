@@ -1,4 +1,5 @@
 import { User } from "../../../core/models/user.model";
+import { Theme } from "../../theme/models/theme.model";
 
 export class Story {
     
@@ -7,6 +8,6 @@ export class Story {
     content!: string;
     createdAt!: Date;
     associatedUser!: User;
-    associatedTheme!: number;
+    associatedTheme!: Theme;
 
 }
