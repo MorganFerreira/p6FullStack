@@ -7,6 +7,7 @@ import { StoriesComponent } from './features/stories/components/stories/stories.
 import { ThemesComponent } from './features/theme/components/themes/themes.component';
 import { ProfilComponent } from './features/profil/profil.component';
 import { StoryCreationComponent } from './features/stories/components/story-creation/story-creation.component';
+import { StoryComponent } from './features/stories/components/story/story.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -16,6 +17,7 @@ export const routes: Routes = [
     { path: 'themes', component: ThemesComponent },
     { path: 'profile', component: ProfilComponent },
     { path: 'createStory', component: StoryCreationComponent },
+    { path: 'storyDetail/:storyId', component: StoryComponent },
     { path: '**', redirectTo: '404' }
 ];
 

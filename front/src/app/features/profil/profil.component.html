@@ -20,6 +20,7 @@
 <div>
     <h2>Abonnements</h2>
 </div>
+<p> {{ noSubscriptionMessage }}</p>
 <section class="container-themes-section">
     <div class="container-themes-div">
         <ng-container *ngFor="let themeSubscribed of (themesSubscribed | async)">

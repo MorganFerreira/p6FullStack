@@ -45,3 +45,23 @@
 .date {
     margin-right: 50px;
 }
+
+@media screen and (max-width: 700px) {
+    .container-stories-section {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        width: auto;
+    }
+    .container-story-creation {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .container-stories-div{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}

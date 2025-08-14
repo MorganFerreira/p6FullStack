@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../../header/header.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { flatMap, mergeMap, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Theme } from '../../../theme/models/theme.model';
 import { ThemesService } from '../../../theme/services/themes.services';
 import { SessionService } from '../../../../core/services/session.service';

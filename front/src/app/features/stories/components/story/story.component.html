@@ -1,1 +1,44 @@
-<p>story works!</p>
+<app-header></app-header>
+<div class="container-detail-story">
+    <div>
+        <button mat-icon-button (click)="back()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+    </div>
+    <div class="div-story" *ngIf="story$ | async as story">
+        <h2>
+            {{ story.title }}
+        </h2>
+        <div class="date-author-story">
+            <div class="date-author">
+                <div class="date">
+                    Date : {{ story.createdAt | date: 'longDate'}}
+                </div>
+                <div class="author">
+                    Auteur : {{ story.associatedUser.name }}
+                </div>
+            </div>
+            <div>
+                Thème : {{ story.associatedTheme.title }}
+            </div>
+        </div>
+        <div class="content">
+            {{ story.content }}
+        </div>
+    </div>
+    <div class="div-comments">
+        <h3>Commentaires</h3>
+        <form [formGroup]="commentForm" (submit)="onCreateComment()">
+            <div class="display-comments" *ngFor="let comment of (commentList$ | async)">
+                <div class="author-comment"><p>{{ comment.associatedUser.name }}</p></div>
+                <div class="display-comment-content">{{ comment.content }}</div>
+            </div>
+            <div class="create-comments">
+                <textarea type="content" name="content" placeholder="Ecrivez ici votre commentaire" formControlName="content"></textarea>
+                <button class="send-button" type="submit" [disabled]="commentForm.invalid">
+                    <img src="/assets/send.png" width="35px" alt="send">
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

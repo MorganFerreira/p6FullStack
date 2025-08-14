@@ -61,6 +61,6 @@ export class StoriesComponent implements OnInit {
 	}
 
 	public storyById(storyId: number) {
-		this.router.navigateByUrl(`stories/story/${storyId}`);
+		this.router.navigateByUrl(`storyDetail/${storyId}`);
 	}
 }

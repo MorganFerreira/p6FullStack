@@ -19,6 +19,7 @@ import { UserService } from '../../core/services/user.service';
 })
 export class ProfilComponent {
 
+    public noSubscriptionMessage: String = '';
     public themesSubscribed = new BehaviorSubject<Theme[]>([]);
     //Minimum 8 caractères, au - 1 lettre majuscule, 1 lettre minuscule, un chiffre et un caractère spécial:
     private passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#^?&])[A-Za-z\d@$!%*#^?&]{8,}$/;
@@ -65,6 +66,11 @@ export class ProfilComponent {
     private refreshThemes() {
         this.themesService.getAllSubscribedThemesByUserId(this.userId!).subscribe(themes => {
             this.themesSubscribed.next(themes);
+            if (themes.length === 0) {
+                this.noSubscriptionMessage = "Aucun abonnement détecté";
+            } else {
+                this.noSubscriptionMessage = '';
+            }
         });
     }
 }

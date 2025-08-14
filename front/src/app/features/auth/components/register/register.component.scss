@@ -49,3 +49,18 @@ input {
   flex-direction: column;
   align-items: center;
 }
+
+@media screen and (max-width: 700px) {
+    div.img-responsive {
+        display: block;
+        flex-direction: column;
+        margin: auto;
+        text-align: center;
+    }
+    header {
+        display: none;
+    }
+    .mat-icon-button {
+        margin-top: -130px;
+    }
+}

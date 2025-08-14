@@ -13,10 +13,14 @@ export class HeaderComponent {
 	
 	private sessionService = inject(SessionService);
 	private router = inject(Router);
+	public isShowMenuMobile = false;
 	
 	logOut() {
 		this.sessionService.logOut();
 		this.router.navigate(['/']);
 	}
 
+	public showMenuMobile() {
+        this.isShowMenuMobile = !this.isShowMenuMobile;
+    }
 }

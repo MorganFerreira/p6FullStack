@@ -46,8 +46,73 @@ a {
     color: #7464BF;
 }
 
-.activeImg{
+.activeImg {
     border-radius: 40px;
     border: 5px solid;
     color: #7464BF;
+}
+
+.div-nav-mobile {
+    display: none;
+}
+
+.button-nav-mobile {
+   border: 0px;
+   background-color: transparent;
+}
+
+.show-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 30%;
+    background-color: white;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.div-menu-mobile {
+    display: none;
+}
+
+.div-menu-mobile-stories-themes {
+    display: none;
+}
+
+.div-menu-mobile-profile {
+    display: none;
+}
+
+.div-menu-mobile-blur{
+    display: none;
+}
+
+.show-div-menu-mobile-stories-themes {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20%;
+}
+
+.show-div-menu-mobile-blur {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 70%;
+    background-color: rgba(128,128,127,0.5);
+}
+
+@media screen and (max-width: 700px) {
+    .div-nav {
+        display: none;
+    }
+    .div-nav-mobile {
+        display: flex;
+    }
+    .div-menu-mobile {
+        display: flex;
+    }
 }

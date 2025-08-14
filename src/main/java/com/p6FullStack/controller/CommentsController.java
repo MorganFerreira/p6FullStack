@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,13 +39,13 @@ public class CommentsController {
 	 */
 	@Operation(summary = "Get all comments", description = "Retourne toutes les commentaires")
     @GetMapping("")
-    public ResponseEntity<CommentsResponse> findAllComments() {
+    public ResponseEntity<?> findAllComments() {
         List<Comments> comments = commentsService.getAllComments();        
         if(comments != null){
             List<CommentsDto> commentsDto = comments.stream()
             									 	.map(comment -> commentsMapper.mapToDto(comment))
             									 	.collect(Collectors.toList());
-            return ResponseEntity.ok(new CommentsResponse(commentsDto));
+            return ResponseEntity.ok().body(commentsDto);
         } else {
             return ResponseEntity.status(404).build();
         }
@@ -58,13 +59,12 @@ public class CommentsController {
 	 */
 	@Operation(summary = "Create comment", description = "Créés un commentaire")
     @PostMapping("")
-    public ResponseEntity<CommentResponse> createComment(@RequestHeader("Authorization") String token, @ModelAttribute CommentsDto commentDto) throws Exception {
+    public ResponseEntity<CommentResponse> createComment(@RequestHeader("Authorization") String token, @RequestBody CommentsDto commentDto) throws Exception {
     
         commentsService.createComment(commentsMapper.mapToEntity(commentDto));
         return ResponseEntity.ok(new CommentResponse("Commentaire créé !!!"));
     }
     
     public record CommentResponse(String response) {}
-    public record CommentsResponse(List<CommentsDto> comments) {}
 
 }

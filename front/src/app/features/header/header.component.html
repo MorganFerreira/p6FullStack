@@ -8,4 +8,18 @@
         <a routerLink="/themes" routerLinkActive="active">Thèmes</a>
         <a routerLink="/profile" routerLinkActive="activeImg"><img class="img-profile" src="/assets/profile.png" alt="profile"></a>
     </div>
+    <div class="div-nav-mobile">
+        <button class="button-nav-mobile" (click)="showMenuMobile()">
+            <img src="/assets/menu-button.png" width="30px" alt="menumobile">
+        </button>
+        <div class="div-menu-mobile" [ngClass]="{'show-menu':isShowMenuMobile}" (click)="showMenuMobile()">
+            <div class="div-menu-mobile-stories-themes" [ngClass]="{'show-div-menu-mobile-stories-themes':isShowMenuMobile}">
+                <button class="logOut" (click)="logOut()">Se déconnecter</button>
+                <a routerLink="/stories" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Articles</a>
+                <a routerLink="/themes" routerLinkActive="active">Thèmes</a>
+                <a routerLink="/profile" routerLinkActive="activeImg"><img class="div-menu-mobile-img-profile" src="/assets/profile.png" alt="profile"></a>
+            </div>
+        </div>
+        <div class="div-menu-mobile-blur" [ngClass]="{'show-div-menu-mobile-blur':isShowMenuMobile}"></div>
+    </div>
 </header>
